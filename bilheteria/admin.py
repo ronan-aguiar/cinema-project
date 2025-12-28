@@ -8,7 +8,7 @@ class FilmeAdmin(admin.ModelAdmin):
 
 @admin.register(Sessao)
 class SessaoAdmin(admin.ModelAdmin):
-    list_display = ('filme', 'sala', 'horario', 'preco')
+    list_display = ('filme', 'sala', 'horario')
     list_filter = ('sala', 'horario')
 
 @admin.register(Ingresso)

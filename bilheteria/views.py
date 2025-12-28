@@ -19,11 +19,22 @@ def sessao_detalhes(request, sessao_id):
     sessao = get_object_or_404(Sessao, pk=sessao_id)
     
     if request.method == 'POST':
-        forma_pagamento = request.POST.get('forma_pagamento')
+        tipo = request.POST.get('tipo_ingresso')
+        forma_pagamento = 'DINHEIRO'  # Por enquanto fixo
         
-        # Registra o vendedor (usuário logado)
+        # Lógica de preços
+        preco = 0
+        if tipo == 'INTEIRA':
+            preco = 16.00
+        elif tipo == 'MEIA':
+            preco = 8.00
+        # ESTUDANTE e CORTESIA continuam 0
+        
+        # Registra o vendedor
         ingresso = Ingresso.objects.create(
             sessao=sessao,
+            tipo=tipo,
+            valor_pago=preco,
             forma_pagamento=forma_pagamento,
             vendedor=request.user
         )

@@ -22,7 +22,6 @@
                 style="background-color: #333; border: 1px solid #555;">
                 <div style="font-size: 18px; color: var(--primary);">{{ sessao.horario|date:"H:i" }}</div>
                 <div style="font-size: 12px; color: #aaa;">{{ sessao.sala }}</div>
-                <div style="font-size: 12px;">R$ {{ sessao.preco }}</div>
             </a>
             {% empty %}
             <p>Nenhuma sessão disponível para este filme.</p>
