@@ -50,33 +50,38 @@ def compra_sucesso(request):
     return render(request, 'bilheteria/compra_sucesso.html')
 @login_required
 def relatorios(request):
-    hoje = timezone.localtime(timezone.now()).date()
-    vendas_hoje = Ingresso.objects.filter(data_venda__date=hoje)
+    sessao_id = request.GET.get('sessao_id')
+    sessoes_lista = Sessao.objects.select_related('filme').order_by('-horario')[:50] # Últimas 50 sessões
     
-    # Resumo Geral
-    total_receita = vendas_hoje.aggregate(Sum('valor_pago'))['valor_pago__sum'] or 0
-    total_ingressos = vendas_hoje.count()
-    
-    # Vendas por Sessão (com detalhamento de tipos)
-    from django.db.models import Q
-    vendas_por_sessao = Sessao.objects.filter(horario__date=hoje).annotate(
-        qtd_inteira=Count('ingresso', filter=Q(ingresso__tipo='INTEIRA')),
-        qtd_meia=Count('ingresso', filter=Q(ingresso__tipo='MEIA')),
-        total_vendas=Count('ingresso'),
-        receita=Sum('ingresso__valor_pago')
-    ).order_by('horario')
-    
-    # Vendas por Vendedor
-    vendas_por_vendedor = User.objects.filter(ingresso__data_venda__date=hoje).annotate(
-        qtd=Count('ingresso'),
-        total=Sum('ingresso__valor_pago')
-    ).order_by('-total')
+    sessao_selecionada = None
+    vendas_sessao = None
+    metricas = {}
+
+    if sessao_id:
+        sessao_selecionada = get_object_or_404(Sessao, pk=sessao_id)
+        vendas_sessao = Ingresso.objects.filter(sessao=sessao_selecionada)
+        
+        from django.db.models import Q
+        resumo = vendas_sessao.aggregate(
+            qtd_inteira=Count('id', filter=Q(tipo='INTEIRA')),
+            qtd_meia=Count('id', filter=Q(tipo='MEIA')),
+            total_qtd=Count('id'),
+            total_receita=Sum('valor_pago')
+        )
+        
+        vendedores = User.objects.filter(ingresso__sessao=sessao_selecionada).annotate(
+            qtd=Count('ingresso'),
+            total=Sum('ingresso__valor_pago')
+        ).order_by('-total')
+        
+        metricas = {
+            'resumo': resumo,
+            'vendedores': vendedores
+        }
 
     context = {
-        'hoje': hoje,
-        'total_receita': total_receita,
-        'total_ingressos': total_ingressos,
-        'vendas_por_sessao': vendas_por_sessao,
-        'vendas_por_vendedor': vendas_por_vendedor,
+        'sessoes_lista': sessoes_lista,
+        'sessao_selecionada': sessao_selecionada,
+        'metricas': metricas,
     }
     return render(request, 'bilheteria/relatorios.html', context)
