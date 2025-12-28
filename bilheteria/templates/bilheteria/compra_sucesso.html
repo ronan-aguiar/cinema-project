@@ -6,6 +6,10 @@
     <h1>Compra Realizada com Sucesso!</h1>
     <p style="font-size: 18px; color: #aaa; margin-bottom: 40px;">Seu ingresso foi gerado. Bom filme!</p>
 
-    <a href="{% url 'index' %}" class="btn">Voltar para Home</a>
+    <div style="display: flex; gap: 20px; justify-content: center;">
+        <button onclick="history.back()" class="btn" style="background-color: #333;">Voltar para Sessão (Nova
+            Venda)</button>
+        <a href="{% url 'index' %}" class="btn">Voltar para Home</a>
+    </div>
 </div>
 {% endblock %}

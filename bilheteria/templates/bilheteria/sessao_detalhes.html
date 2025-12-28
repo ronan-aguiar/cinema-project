@@ -11,20 +11,28 @@
         <p style="font-size: 24px; color: var(--primary); margin-top: 10px;">R$ {{ sessao.preco }}</p>
     </div>
 
-    <form method="post">
+    <h3 style="text-align: center; margin-bottom: 20px;">Selecione o Pagamento</h3>
+    <form method="post" id="pos-form">
         {% csrf_token %}
-        <div style="margin-bottom: 20px;">
-            <label style="display: block; margin-bottom: 10px;">Forma de Pagamento</label>
-            <select name="forma_pagamento"
-                style="width: 100%; padding: 10px; background: #333; border: 1px solid #555; color: white; border-radius: 4px;">
-                <option value="DINHEIRO">Dinheiro</option>
-                <option value="CARTAO">Cartão de Crédito/Débito</option>
-                <option value="PIX">PIX</option>
-            </select>
-        </div>
+        <input type="hidden" name="forma_pagamento" id="input-pagamento">
 
-        <button type="submit" class="btn" style="width: 100%; padding: 15px; font-size: 18px;">Confirmar
-            Pagamento</button>
+        <div style="display: grid; gap: 15px;">
+            <button type="button" onclick="confirmarVenda('DINHEIRO')"
+                style="padding: 20px; font-size: 20px; background: #2ecc71; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
+                💵 DINHEIRO
+            </button>
+            <p style="text-align: center; color: #666; font-size: 12px; margin-top: 10px;">Outras formas de pagamento
+                temporariamente indisponíveis.</p>
+        </div>
     </form>
+
+    <script>
+        function confirmarVenda(metodo) {
+            if (confirm('Confirmar venda no ' + metodo + '?')) {
+                document.getElementById('input-pagamento').value = metodo;
+                document.getElementById('pos-form').submit();
+            }
+        }
+    </script>
 </div>
 {% endblock %}
