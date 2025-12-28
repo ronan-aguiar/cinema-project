@@ -13,6 +13,7 @@ class Filme(models.Model):
         ('16', '16 anos'),
         ('18', '18 anos'),
     ])
+    poster = models.ImageField(upload_to='posters/', null=True, blank=True, verbose_name="Poster do Filme")
 
     def __str__(self):
         return self.titulo

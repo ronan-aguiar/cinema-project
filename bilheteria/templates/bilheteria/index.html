@@ -41,7 +41,11 @@
 <div class="movie-grid">
     {% for filme in filmes %}
     <div class="card">
-        <div class="movie-poster">Poster</div>
+        {% if filme.poster %}
+        <img src="{{ filme.poster.url }}" alt="{{ filme.titulo }}" class="movie-poster" style="object-fit: cover;">
+        {% else %}
+        <div class="movie-poster">Sem Poster</div>
+        {% endif %}
         <div class="movie-info">
             <div class="movie-title">{{ filme.titulo }}</div>
             <div class="movie-meta">{{ filme.duracao_minutos }} min | {{ filme.classificacao }}</div>

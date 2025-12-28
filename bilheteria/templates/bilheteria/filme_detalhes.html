@@ -3,8 +3,12 @@
 {% block content %}
 <div style="display: flex; gap: 40px; flex-wrap: wrap;">
     <div style="flex: 1; min-width: 300px;">
+        {% if filme.poster %}
+        <img src="{{ filme.poster.url }}" alt="{{ filme.titulo }}" style="width: 100%; border-radius: 8px;">
+        {% else %}
         <div style="background: #333; height: 400px; display: flex; align-items: center; justify-content: center;">
-            Poster Widescreen</div>
+            Sem Poster</div>
+        {% endif %}
     </div>
     <div style="flex: 2; min-width: 300px;">
         <h1 style="font-size: 40px; margin-bottom: 10px;">{{ filme.titulo }}</h1>
