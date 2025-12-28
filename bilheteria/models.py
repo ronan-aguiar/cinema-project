@@ -20,7 +20,6 @@ class Filme(models.Model):
 
 class Sessao(models.Model):
     filme = models.ForeignKey(Filme, on_delete=models.CASCADE, verbose_name="Filme")
-    sala = models.CharField(max_length=50, verbose_name="Sala de Exibição")
     horario = models.DateTimeField(verbose_name="Horário da Sessão")
 
     def __str__(self):
