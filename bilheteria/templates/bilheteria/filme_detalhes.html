@@ -15,7 +15,7 @@
 
         <p style="font-size: 18px; line-height: 1.8; margin-bottom: 40px;">{{ filme.sinopse }}</p>
 
-        <h2>Sessões Disponíveis</h2>
+        <h2>Sessões deste Filme</h2>
         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
             {% for sessao in sessoes %}
             <a href="{% url 'sessao_detalhes' sessao.id %}" class="btn"

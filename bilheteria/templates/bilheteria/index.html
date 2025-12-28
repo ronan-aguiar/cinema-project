@@ -36,7 +36,7 @@
     }
 </style>
 
-<h1 style="margin-bottom: 30px;">Em Cartaz</h1>
+<h1 style="margin-bottom: 30px;">Venda de Ingressos</h1>
 
 <div class="movie-grid">
     {% for filme in filmes %}
@@ -46,7 +46,7 @@
             <div class="movie-title">{{ filme.titulo }}</div>
             <div class="movie-meta">{{ filme.duracao_minutos }} min | {{ filme.classificacao }}</div>
             <a href="{% url 'filme_detalhes' filme.id %}" class="btn"
-                style="width: 100%; text-align: center; box-sizing: border-box;">Ver Sessões</a>
+                style="width: 100%; text-align: center; box-sizing: border-box;">Selecionar Sessão</a>
         </div>
     </div>
     {% empty %}
