@@ -21,3 +21,6 @@ venv.bak/
 # IDEs
 .vscode/
 .idea/
+
+# Static
+staticfiles/
