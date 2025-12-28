@@ -24,12 +24,12 @@
         }
 
         header {
-            background-color: #000;
+            background-color: #fff;
             padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #ddd;
         }
 
         .logo {
@@ -42,10 +42,11 @@
         }
 
         nav a {
-            color: var(--light);
+            color: #333;
             text-decoration: none;
             margin-left: 20px;
             font-size: 14px;
+            font-weight: 500;
         }
 
         .container {
@@ -101,19 +102,26 @@
 
 <body>
     <header>
-        <a href="{% url 'index' %}" class="logo">CineMetrópolis</a>
-        {% if user.is_authenticated %}
-        <span style="color: #aaa; margin-right: 20px; font-size: 14px;">
-            Logado como: <strong style="color: white;">{{ user.username }}</strong>
-        </span>
-        <form action="{% url 'logout' %}" method="post" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit"
-                style="background: none; border: none; color: var(--primary); cursor: pointer; font-size: 14px; text-decoration: underline;">Sair</button>
-        </form>
-        {% endif %}
-        <a href="{% url 'index' %}">Início</a>
-        </nav>
+        <div
+            style="max-width: 1200px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <a href="{% url 'index' %}" class="logo">
+                <img src="{% static 'bilheteria/img/logo.png' %}" alt="Cine Metrópolis"
+                    style="height: 120px; vertical-align: middle;">
+            </a>
+            <nav style="display: flex; align-items: center;">
+                {% if user.is_authenticated %}
+                <span style="color: #666; margin-right: 20px; font-size: 14px;">
+                    Logado como: <strong style="color: #000;">{{ user.username }}</strong>
+                </span>
+                <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit"
+                        style="background: none; border: none; color: var(--primary); cursor: pointer; font-size: 14px; text-decoration: underline;">Sair</button>
+                </form>
+                {% endif %}
+                <a href="{% url 'index' %}">Início</a>
+            </nav>
+        </div>
     </header>
 
     <div class="container">
