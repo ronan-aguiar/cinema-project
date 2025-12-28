@@ -1,0 +1,30 @@
+{% extends 'bilheteria/base.html' %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto; background: #1f1f1f; padding: 40px; border-radius: 8px;">
+    <h2 style="text-align: center; margin-bottom: 30px;">Finalizar Compra</h2>
+
+    <div style="background: #333; padding: 20px; border-radius: 4px; margin-bottom: 30px;">
+        <h3 style="margin-bottom: 10px;">{{ sessao.filme.titulo }}</h3>
+        <p><strong>Sala:</strong> {{ sessao.sala }}</p>
+        <p><strong>Horário:</strong> {{ sessao.horario|date:"d/m/Y - H:i" }}</p>
+        <p style="font-size: 24px; color: var(--primary); margin-top: 10px;">R$ {{ sessao.preco }}</p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 10px;">Forma de Pagamento</label>
+            <select name="forma_pagamento"
+                style="width: 100%; padding: 10px; background: #333; border: 1px solid #555; color: white; border-radius: 4px;">
+                <option value="DINHEIRO">Dinheiro</option>
+                <option value="CARTAO">Cartão de Crédito/Débito</option>
+                <option value="PIX">PIX</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn" style="width: 100%; padding: 15px; font-size: 18px;">Confirmar
+            Pagamento</button>
+    </form>
+</div>
+{% endblock %}

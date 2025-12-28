@@ -1,0 +1,11 @@
+{% extends 'bilheteria/base.html' %}
+
+{% block content %}
+<div style="text-align: center; padding: 60px 20px;">
+    <div style="font-size: 60px; color: #4cd137; margin-bottom: 20px;">✓</div>
+    <h1>Compra Realizada com Sucesso!</h1>
+    <p style="font-size: 18px; color: #aaa; margin-bottom: 40px;">Seu ingresso foi gerado. Bom filme!</p>
+
+    <a href="{% url 'index' %}" class="btn">Voltar para Home</a>
+</div>
+{% endblock %}

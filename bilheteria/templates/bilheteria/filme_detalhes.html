@@ -1,0 +1,33 @@
+{% extends 'bilheteria/base.html' %}
+
+{% block content %}
+<div style="display: flex; gap: 40px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 300px;">
+        <div style="background: #333; height: 400px; display: flex; align-items: center; justify-content: center;">
+            Poster Widescreen</div>
+    </div>
+    <div style="flex: 2; min-width: 300px;">
+        <h1 style="font-size: 40px; margin-bottom: 10px;">{{ filme.titulo }}</h1>
+        <p style="color: #999; margin-bottom: 20px;">
+            <span style="border: 1px solid #999; padding: 2px 5px; border-radius: 4px;">{{ filme.classificacao }}</span>
+            &nbsp; {{ filme.duracao_minutos }} min
+        </p>
+
+        <p style="font-size: 18px; line-height: 1.8; margin-bottom: 40px;">{{ filme.sinopse }}</p>
+
+        <h2>Sessões Disponíveis</h2>
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+            {% for sessao in sessoes %}
+            <a href="{% url 'sessao_detalhes' sessao.id %}" class="btn"
+                style="background-color: #333; border: 1px solid #555;">
+                <div style="font-size: 18px; color: var(--primary);">{{ sessao.horario|date:"H:i" }}</div>
+                <div style="font-size: 12px; color: #aaa;">{{ sessao.sala }}</div>
+                <div style="font-size: 12px;">R$ {{ sessao.preco }}</div>
+            </a>
+            {% empty %}
+            <p>Nenhuma sessão disponível para este filme.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
